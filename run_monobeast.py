@@ -62,7 +62,7 @@ def get_default_flags(flags: DictConfig) -> DictConfig:
     return OmegaConf.create(flags)
 
 
-@hydra.main(config_path="conf", config_name="conv_phase1_shaped_reward")
+@hydra.main(config_path="conf", config_name="conv_phase4_small_teacher.yaml")
 def main(flags: DictConfig):
     cli_conf = OmegaConf.from_cli()
     if Path("config.yaml").exists():

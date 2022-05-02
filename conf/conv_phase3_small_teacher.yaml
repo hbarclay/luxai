@@ -9,11 +9,11 @@ hydra:
 name: conv_phase3_small_teacher
 ## WANDB params
 # The wandb project name
-project: Lux_AI_2021
+project: luxai-rl
 # The wandb user to log to
-entity: isaiahpressman
+entity: hbarclay
 # The wandb group for the run
-group: after_september_patch
+#group: after_september_patch
 
 ## ENV params
 act_space: BasicActionSpace

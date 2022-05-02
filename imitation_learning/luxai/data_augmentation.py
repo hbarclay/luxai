@@ -5,7 +5,7 @@ import random
 from functools import lru_cache
 import numpy as np
 
-from luxai.output_features import UNIT_ACTIONS_MAP
+from imitation_learning.luxai.output_features import UNIT_ACTIONS_MAP
 
 
 def random_data_augmentation(x, y):

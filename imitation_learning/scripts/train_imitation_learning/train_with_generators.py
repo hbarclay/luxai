@@ -28,7 +28,7 @@ def train(config_path):
     with strategy.scope():
         train_enqueuer, val_enqueuer = get_enqueuers(train_conf['data'])
         model = create_model(train_conf['model_params'])
-        callbacks = create_callbacks(train_conf['callbacks'], output_folder)
+        #callbacks = create_callbacks(train_conf['callbacks'], output_folder)
         model.fit(x=train_enqueuer.get(), validation_data=val_enqueuer.get(),
                   callbacks=callbacks, **train_conf['train_kwargs'])
         train_enqueuer.stop()

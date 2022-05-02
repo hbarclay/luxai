@@ -7,19 +7,21 @@ hydra:
     dir: ./outputs/${now:%m-%d}/${now:%H-%M-%S}
 
 name: conv_phase1_shaped_reward
+#
+#
 ## WANDB params
 # The wandb project name
-project: Lux_AI_2021
+project: luxai
 # The wandb user to log to
-entity: isaiahpressman
+entity: cs394r-poject
 # The wandb group for the run
-group: after_september_patch
+group: test_runs
 
 ## ENV params
 act_space: BasicActionSpace
 obs_space: FixedShapeContinuousObsV2
-obs_space_kwargs:
-  include_subtask_encoding: False
+obs_space_kwargs: {}
+  #include_subtask_encoding: False
 reward_space: StatefulMultiReward
 reward_space_kwargs:
   #early_stop: True
@@ -69,7 +71,7 @@ lmb: 0.8
 reduction: sum
 
 # MISCELLANEOUS params
-actor_device: cuda:1
+actor_device: cuda:0
 learner_device: cuda:0
 disable_wandb: False
 model_log_freq: 100

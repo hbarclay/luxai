@@ -9,11 +9,11 @@ hydra:
 name: null
 ## WANDB params
 # The wandb project name
-project: Lux_AI_2021
+project: luxai-rl
 # The wandb user to log to
-entity: isaiahpressman
+entity: hbarclay
 # The wandb group for the run
-group: after_september_patch
+#group: after_september_patch
 
 ## ENV params
 act_space: BasicActionSpace
@@ -64,7 +64,7 @@ reduction: sum
 
 # Pretrained model for KL loss
 use_teacher: True
-teacher_load_dir: /Windows/Users/isaia/Documents/GitHub/Kaggle/Lux_AI_2021/outputs/11-18/20-32-30/
+teacher_load_dir: /abcdef
 teacher_checkpoint_file: 26530944.pt
 
 # MISCELLANEOUS params

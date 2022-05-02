@@ -11,7 +11,7 @@ import numpy as np
 import tensorflow.keras.backend as K
 import tensorflow as tf
 from tensorflow.keras.callbacks import Callback, TensorBoard
-import nvidia_smi
+#import nvidia_smi
 
 
 class LogLearningRate(Callback):
@@ -148,66 +148,66 @@ class LogCPU(Callback):
         self._cpu_usage.append(get_cpu_usage())
 
 
-class LogGPU(Callback):
-    """
-    Simple callback that logs the GPU. It is intended to be use along CSVLogger.
-    When using both callbacks the evolution of the learning rate will be saved to csv file.
-
-    Example ::
-
-        LogLearningRate(),
-        CSVLogger(os.path.join(model_folder, 'training.log'), append=True),
-
-    """
-    # pylint: disable=W0613
-
-    def __init__(self):
-        super(LogGPU, self).__init__()
-        self._gpu_handles = {}
-        try:
-            nvidia_smi.nvmlInit()
-            for gpu_idx in get_available_gpu_index():
-                self._gpu_handles[gpu_idx] = nvidia_smi.nvmlDeviceGetHandleByIndex(
-                    gpu_idx)
-        except nvidia_smi.NVMLError as exc:
-            print(exc)
-
-        self._gpu_usage = {}
-        self._gpu_memory = {}
-        self._gpu_temperature = {}
-        self.n_gpus = len(self._gpu_handles)
-
-    def on_epoch_start(self, epoch, logs=None):
-        self._gpu_usage = {}
-        self._gpu_memory = {}
-        self._gpu_temperature = {}
-
-    def on_epoch_end(self, epoch, logs=None):
-        if self._gpu_usage:
-            for gpu_idx, values in self._gpu_usage.items():
-                logs['gpu%i_usage' % gpu_idx] = np.mean(values)
-        if self._gpu_memory:
-            for gpu_idx, values in self._gpu_memory.items():
-                logs['gpu%i_memory' % gpu_idx] = np.mean(values)
-        if self._gpu_temperature:
-            for gpu_idx, values in self._gpu_temperature.items():
-                logs['gpu%i_temp' % gpu_idx] = np.mean(values)
-
-    def on_batch_end(self, batch, logs=None):
-        """ Save gpu stats on each batch """
-        for gpu_idx, gpu_handle in self._gpu_handles.items():
-            res = nvidia_smi.nvmlDeviceGetUtilizationRates(gpu_handle)
-            if gpu_idx not in self._gpu_usage:
-                self._gpu_usage[gpu_idx] = []
-            if gpu_idx not in self._gpu_memory:
-                self._gpu_memory[gpu_idx] = []
-            self._gpu_usage[gpu_idx].append(res.gpu)
-            self._gpu_memory[gpu_idx].append(res.memory)
-
-            if gpu_idx not in self._gpu_temperature:
-                self._gpu_temperature[gpu_idx] = []
-            temperature = nvidia_smi.nvmlDeviceGetTemperature(gpu_handle, 0)
-            self._gpu_temperature[gpu_idx].append(temperature)
+#3class LogGPU(Callback):
+#3    """
+#3    Simple callback that logs the GPU. It is intended to be use along CSVLogger.
+#3    When using both callbacks the evolution of the learning rate will be saved to csv file.
+#3
+#3    Example ::
+#3
+#3        LogLearningRate(),
+#3        CSVLogger(os.path.join(model_folder, 'training.log'), append=True),
+#3
+#3    """
+#3    # pylint: disable=W0613
+#3
+#3    def __init__(self):
+#3        super(LogGPU, self).__init__()
+#3        self._gpu_handles = {}
+#3        try:
+#3            nvidia_smi.nvmlInit()
+#3            for gpu_idx in get_available_gpu_index():
+#3                self._gpu_handles[gpu_idx] = nvidia_smi.nvmlDeviceGetHandleByIndex(
+#3                    gpu_idx)
+#3        except nvidia_smi.NVMLError as exc:
+#3            print(exc)
+#3
+#3        self._gpu_usage = {}
+#3        self._gpu_memory = {}
+#3        self._gpu_temperature = {}
+#3        self.n_gpus = len(self._gpu_handles)
+#3
+#3    def on_epoch_start(self, epoch, logs=None):
+#3        self._gpu_usage = {}
+#3        self._gpu_memory = {}
+#3        self._gpu_temperature = {}
+#3
+#3    def on_epoch_end(self, epoch, logs=None):
+#3        if self._gpu_usage:
+#3            for gpu_idx, values in self._gpu_usage.items():
+#3                logs['gpu%i_usage' % gpu_idx] = np.mean(values)
+#3        if self._gpu_memory:
+#3            for gpu_idx, values in self._gpu_memory.items():
+#3                logs['gpu%i_memory' % gpu_idx] = np.mean(values)
+#3        if self._gpu_temperature:
+#3            for gpu_idx, values in self._gpu_temperature.items():
+#3                logs['gpu%i_temp' % gpu_idx] = np.mean(values)
+#3
+#3    def on_batch_end(self, batch, logs=None):
+#3        """ Save gpu stats on each batch """
+#3        for gpu_idx, gpu_handle in self._gpu_handles.items():
+#3            res = nvidia_smi.nvmlDeviceGetUtilizationRates(gpu_handle)
+#3            if gpu_idx not in self._gpu_usage:
+#3                self._gpu_usage[gpu_idx] = []
+#3            if gpu_idx not in self._gpu_memory:
+#3                self._gpu_memory[gpu_idx] = []
+#3            self._gpu_usage[gpu_idx].append(res.gpu)
+#3            self._gpu_memory[gpu_idx].append(res.memory)
+#3
+#3            if gpu_idx not in self._gpu_temperature:
+#3                self._gpu_temperature[gpu_idx] = []
+#3            temperature = nvidia_smi.nvmlDeviceGetTemperature(gpu_handle, 0)
+#3            self._gpu_temperature[gpu_idx].append(temperature)
 
 
 class GarbageCollector(Callback):

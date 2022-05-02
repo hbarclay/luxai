@@ -8,9 +8,9 @@ from tqdm import tqdm
 import pandas as pd
 import yaml
 
-from luxai.input_features import make_input, expand_board_size_adding_zeros
-from luxai.output_features import create_actions_mask, create_output_features
-from luxai.data_augmentation import random_data_augmentation
+from imitation_learning.luxai.input_features import make_input, expand_board_size_adding_zeros
+from imitation_learning.luxai.output_features import create_actions_mask, create_output_features
+from imitation_learning.luxai.data_augmentation import random_data_augmentation
 
 
 def load_train_and_test_data(n_matches, test_fraction, matches_json_dir,
@@ -55,10 +55,12 @@ def data_generator(n_matches, batch_size, matches_json_dir, matches_cache_npz_di
         matches = []
         for idx in episode_indices:
             try:
-                episode_id, player, submission_id = df.loc[idx, ['EpisodeId', 'Index', 'SubmissionId']]
+                episode_id, player, submission_id, create_time = df.loc[idx, ['EpisodeId', 'Index', 'SubmissionId', 'CreateTime']]
                 match = load_match(episode_id, player, matches_json_dir, matches_cache_npz_dir)
                 add_submission_id_to_features(match, submission_id, submission_id_to_idx)
                 matches.append(match)
+                #print(match)
+                #exit(0)
             except Exception as e:
                 print('Could not load match: %s, exception: %s' % (str(episode_id), str(e)))
         data = combine_data_for_training(matches, verbose=False)
@@ -151,7 +153,7 @@ def load_match(episode_id, player, matches_json_dir, matches_cache_npz_dir):
     if os.path.exists(npz_filepath):
         match = load_match_from_npz(npz_filepath)
     else:
-        json_filepath = os.path.join(matches_json_dir, '%i.json' % episode_id)
+        json_filepath = os.path.join(matches_json_dir, 'episode_%i.json' % episode_id)
         match = load_match_from_json(json_filepath, player)
         save_match_to_npz(npz_filepath, match)
     return match
@@ -173,6 +175,7 @@ def load_match_from_json(filepath, player):
     board, features, unit_output, city_output = [], [], [], []
     for step in range(len(match) - 1):
         observation = match[step][0]['observation']
+        print(observation)
         if player:
             observation.update(match[step][player]['observation'])
         actions = match[step+1][player]['action'] # notice the step + 150

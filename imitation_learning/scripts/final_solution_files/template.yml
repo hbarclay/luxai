@@ -36,14 +36,14 @@ data:
   train:
     n_matches: 50
     batch_size: 128
-    matches_json_dir: /home/gbarbadillo/luxai_ssd/matches_20211014/matches_json
+    matches_json_dir: /home/harrison/School/rl/project/kaggle/episodes
     matches_cache_npz_dir: /home/gbarbadillo/luxai_ssd/matches_npz_v2
     agent_selection_path: /mnt/hdd0/Kaggle/luxai/models/36_feature_engineering/seed0/stage0/train.csv
     submission_id_to_idx_path: /mnt/hdd0/Kaggle/luxai/models/49_submission_id_as_input/debug/submission_id_to_idx.yaml
   val:
     n_matches: 50
     batch_size: 128
-    matches_json_dir: /home/gbarbadillo/luxai_ssd/matches_20211014/matches_json
+    matches_json_dir: /home/harrison/School/rl/project/kaggle/episodes
     matches_cache_npz_dir: /home/gbarbadillo/luxai_ssd/matches_npz_v2
     agent_selection_path: /mnt/hdd0/Kaggle/luxai/models/36_feature_engineering/seed0/stage0/val.csv
     submission_id_to_idx_path: /mnt/hdd0/Kaggle/luxai/models/49_submission_id_as_input/debug/submission_id_to_idx.yaml

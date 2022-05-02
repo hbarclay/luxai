@@ -141,6 +141,11 @@ def make_input(obs):
     board = np.transpose(board, axes=(1, 2, 0))
     features = np.expand_dims(features, axis=0)
 
+    print(obs)
+    print(board)
+    print(features)
+    exit(0)
+
     return board, features, active_unit_to_position, active_city_to_position, unit_to_position, city_to_position
 
 
