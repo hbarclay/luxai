@@ -1,0 +1,61 @@
+model_params:
+  board_shape:
+  - 32
+  - 32
+  - 28
+  layer_filters:
+  - 512
+  - 512
+  - 512
+  - 512
+  dropout:
+  - 0
+  - 1
+  - 0
+  - 0
+  final_layer_filters: 512
+  z_dim: 27
+  control_type: dense
+  film_type: complex
+  n_neurons:
+  - 16
+  lr: 0.001
+  loss_weights:
+    unit_action: 1
+    city_action: 0.1
+    unit_policy: 1
+    city_policy: 0.1
+train_kwargs:
+  epochs: 600
+  steps_per_epoch: 4000
+  validation_steps: 75
+  verbose: 2
+callbacks:
+  EarlyStopping:
+    monitor: val_loss
+    patience: 40
+  ModelCheckpoint_best_val_loss:
+    filepath: '%s/best_val_loss_model.h5'
+    monitor: val_loss
+    save_best_only: true
+  ReduceLROnPlateau:
+    monitor: val_loss
+    factor: 0.7
+    patience: 5
+    min_lr: 0.0001
+data:
+  max_queue_size: 200
+  train:
+    n_matches: 50
+    batch_size: 128
+    matches_json_dir: /home/harrison/School/rl/project/kaggle/luxai-episodes
+    matches_cache_npz_dir: /home/hbarclay/School/rl/project/kaggle/luxai-episodes
+    agent_selection_path: /home/harrison/School/rl/project/luxai/imitation_learning/train/seed0/train.csv
+    submission_id_to_idx_path: /home/harrison/School/rl/project/luxai/imitation_learning/train/seed0/submission_id_to_idx.yml
+  val:
+    n_matches: 50
+    batch_size: 128
+    matches_json_dir: /home/harrison/School/rl/project/kaggle/luxai-episodes
+    matches_cache_npz_dir: /home/hbarclay/School/rl/project/kaggle/luxai-episodes
+    agent_selection_path: /home/harrison/School/rl/project/luxai/imitation_learning/train/seed0/val.csv
+    submission_id_to_idx_path: /home/harrison/School/rl/project/luxai/imitation_learning/train/seed0/submission_id_to_idx.yml
