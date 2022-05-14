@@ -20,3 +20,14 @@ lux_ai/rl_agent_2/
 # Retired internal testing agents
 internal_testing/hall_of_fame/retired/
 internal_testing/internal_agents/retired/
+
+
+outputs/
+replays/
+errorlogs/
+*.zip
+
+*.egg*
+
+imitation_learning/tags
+tags

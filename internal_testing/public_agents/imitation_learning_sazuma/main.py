@@ -27,7 +27,7 @@ if __name__ == "__main__":
         
         if step == 0:
             player_id = int(observation["updates"][0])
-            observation.player = player_id
+            observation["player"] = player_id
         if inputs == "D_DONE":
             actions = agent(observation, None)
             observation["updates"] = []

@@ -8,7 +8,7 @@ from subprocess import Popen, TimeoutExpired
 import tqdm
 from typing import List, NoReturn, Optional, Tuple, Union
 
-MAP_SIZES = (12, 16, 24, 32)
+MAP_SIZES = { 24, 32}
 
 
 def generate_game_command(
@@ -20,10 +20,10 @@ def generate_game_command(
 ) -> str:
     replay_file = f"{out_dir / game_name}.json"
     cli_args = [
-        "--loglevel 0",
+        "--loglevel 3",
         "--memory 8000",
-        "--maxtime 20000",
-        "storeLogs false",
+        "--maxtime 300000",
+        "storeLogs true",
         f"--width {map_size:d}",
         f"--height {map_size:d}",
         f"--out {replay_file}"
@@ -52,7 +52,7 @@ def run_game(game_command: str) -> NoReturn:
         proc = Popen(game_command, shell=True, stdout=open(os.devnull, 'wb'))
         # Time out if a game doesn't finish after 3 minutes
         try:
-            proc.wait(180.)
+            proc.wait(300.)
             return
         except TimeoutExpired:
             kill(proc.pid)
