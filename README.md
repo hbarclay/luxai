@@ -33,12 +33,12 @@ You could watch the replay by uploading the json file to: https://2021vis.lux-ai
 
 
 ### Important Folders and Files
-conf:  This directory store all hyperparameter setting for the training.
-Imitation_learning - 
-Lux AI: The game environment and the neural network block strucutres. In 'luxai/lux_ai/'lux_gam' you can find the observation space, reward space, and rewards that we desgined.
-Imitation_learning: Imitation learning approch that is build on Ironbar team's implementation
-Internal_testing: public agents and our agents 
-run_monobesat.py:  Start the training process. Includes the neural network archtecture. 
+- conf:  This directory store all hyperparameter setting for the training.
+- Lux AI: The game environment and the neural network block strucutres. In 'luxai/lux_ai/'lux_gam' you can find the observation space, reward space, and rewards that we desgined.
+- Imitation_learning: Imitation learning approch that is build on Ironbar team's implementation
+- Internal_testing: public agents and our agents 
+- run_monobesat.py:  Start the training process. Includes the neural network archtecture. 
+
 
 
 ### Acknowledgements 
