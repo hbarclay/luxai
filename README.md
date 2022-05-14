@@ -43,6 +43,7 @@ run_monobesat.py:  Start the training process. Includes the neural network archt
 
 ### Acknowledgements 
 Our model is build on top these two implementations:
+
 [Toad Brigade's DRL approach on LuxAI](https://github.com/IsaiahPressman/Kaggle_Lux_AI_2021)
 
 [Ironbar's Imitation Learning approach on LuxAI](https://github.com/ironbar/luxai)
